@@ -1,4 +1,4 @@
-# canlendar-app
+# calendar-app
 
 ## Project setup
 ```
