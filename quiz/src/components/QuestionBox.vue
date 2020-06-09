@@ -10,16 +10,19 @@
                     <b-list-group>
                         <b-list-group-item
                          v-for="(answer, index) in answers" 
-                         :key="index">
+                         :key="index"
+                         @click="selectAnswer(index)">
                          
                          {{ answer }}
                          
                          </b-list-group-item>
                     </b-list-group>
-
+                </div>
+                <div>
                     <b-button variant="primary" href="#">Submit</b-button>
                     <b-button @click="NextQuestion" variant="success" href="#">Next</b-button>
                 </div>
+            
         </b-jumbotron>
     </div>
 </template>
@@ -30,6 +33,12 @@ export default {
     props:{
         currentQuestion: Object,
         NextQuestion: Function
+    },
+
+    data(){
+        return{
+            selectedIndex: null
+        }
     },
 
     computed: {
@@ -43,6 +52,27 @@ export default {
 
     mounted(){
         console.log(this.currentQuestion);
+    },
+
+    methods:{
+        selectAnswer(index){
+            this.selectedIndex = index;
+            // console.log(this.selectedIndex);
+        }
     }
 }
 </script>
+
+<style scoped>
+.list-group{
+    margin-bottom: 15px;
+}
+
+.list-group-item:hover{
+    background-color: azure;
+    cursor: pointer;
+}
+.btn{
+    margin: 0 5px;
+}
+</style>
