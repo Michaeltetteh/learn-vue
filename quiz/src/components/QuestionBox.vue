@@ -12,7 +12,7 @@
                          v-for="(answer, index) in shuffledAnswers" 
                          :key="index"
                          @click="selectAnswer(index)"
-                         :class="[selectedIndex === index ? 'selected' : '']">
+                         :class="answerClass(index)">
                          
                          {{ answer }}
                          
@@ -22,6 +22,7 @@
                 <div>
                     <b-button variant="primary"
                     @click="submitAnswer"
+                    :disabled="selectedIndex === null || answered"
                     >
                         Submit
                     </b-button>
@@ -47,7 +48,8 @@ export default {
         return{
             selectedIndex: null,
             shuffledAnswers: [],
-            correctIndex: null
+            correctIndex: null,
+            answered: false
         }
     },
 
@@ -56,6 +58,7 @@ export default {
             immediate: true,
             handler(){
                 this.selectedIndex = null,
+                this.answered = false,
                 this.shuffleAnswer()
             }
         }
@@ -89,8 +92,22 @@ export default {
             if(this.selectedIndex === this.correctIndex){
                 isCorrect = true;
             }
+            this.answered = true;
             this.increament(isCorrect);
         },
+        answerClass(index){
+            let answerClass = '';
+
+            if(!this.answered && this.selectedIndex === index){
+                answerClass = 'selected';
+            }else if(this.correctIndex === index && this.answered){
+                answerClass = 'correct';
+            }else if(this.selectedIndex === index && this.correctIndex !== index && this.answered){
+                answerClass = 'incorrect';
+            }
+
+            return answerClass;
+        }
     }
 }
 </script>
@@ -117,7 +134,7 @@ export default {
 }
 
 .incorrect{
-    background-color: lightcoral;
+    background-color: red;
 }
 
 </style>
