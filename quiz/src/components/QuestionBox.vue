@@ -30,6 +30,8 @@
 
 
 <script>
+import _ from 'lodash'
+
 export default {
     props:{
         currentQuestion: Object,
@@ -38,7 +40,18 @@ export default {
 
     data(){
         return{
-            selectedIndex: null
+            selectedIndex: null,
+            shuffledAnswers: []
+        }
+    },
+
+    watch:{
+        currentQuestion:{
+            immediate: true,
+            handler(){
+                this.selectedIndex = null,
+                this.shuffleAnswer()
+            }
         }
     },
 
@@ -51,14 +64,18 @@ export default {
         }
     },
 
-    mounted(){
-        console.log(this.currentQuestion);
-    },
+    // mounted(){
+    //     console.log(this.currentQuestion);
+    // },
 
     methods:{
         selectAnswer(index){
             this.selectedIndex = index;
             // console.log(this.selectedIndex);
+        },
+        shuffleAnswer(){
+            let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer];
+            this.shuffledAnswers = _.shuffle(answers)
         }
     }
 }
