@@ -11,7 +11,8 @@
                         <b-list-group-item
                          v-for="(answer, index) in answers" 
                          :key="index"
-                         @click="selectAnswer(index)">
+                         @click="selectAnswer(index)"
+                         :class="[selectedIndex === index ? 'selected' : '']">
                          
                          {{ answer }}
                          
@@ -75,4 +76,17 @@ export default {
 .btn{
     margin: 0 5px;
 }
+
+.selected{
+    background-color: aqua;
+}
+
+.correct{
+    background-color: lightgreen;
+}
+
+.incorrect{
+    background-color: lightcoral;
+}
+
 </style>
