@@ -9,7 +9,7 @@
                 <div>
                     <b-list-group>
                         <b-list-group-item
-                         v-for="(answer, index) in answers" 
+                         v-for="(answer, index) in shuffledAnswers" 
                          :key="index"
                          @click="selectAnswer(index)"
                          :class="[selectedIndex === index ? 'selected' : '']">
@@ -20,8 +20,12 @@
                     </b-list-group>
                 </div>
                 <div>
-                    <b-button variant="primary" href="#">Submit</b-button>
-                    <b-button @click="NextQuestion" variant="success" href="#">Next</b-button>
+                    <b-button variant="primary"
+                    @click="submitAnswer"
+                    >
+                        Submit
+                    </b-button>
+                    <b-button @click="NextQuestion" variant="success">Next</b-button>
                 </div>
             
         </b-jumbotron>
@@ -35,13 +39,15 @@ import _ from 'lodash'
 export default {
     props:{
         currentQuestion: Object,
-        NextQuestion: Function
+        NextQuestion: Function,
+        increament: Function
     },
 
     data(){
         return{
             selectedIndex: null,
-            shuffledAnswers: []
+            shuffledAnswers: [],
+            correctIndex: null
         }
     },
 
@@ -76,7 +82,15 @@ export default {
         shuffleAnswer(){
             let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer];
             this.shuffledAnswers = _.shuffle(answers)
-        }
+            this.correctIndex = this.shuffledAnswers.indexOf(this.currentQuestion.correct_answer);
+        },
+        submitAnswer(){
+            let isCorrect = false;
+            if(this.selectedIndex === this.correctIndex){
+                isCorrect = true;
+            }
+            this.increament(isCorrect);
+        },
     }
 }
 </script>
