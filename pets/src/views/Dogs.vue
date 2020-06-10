@@ -1,16 +1,16 @@
 <template>
     <div>
-        <b-table striped hover :items="cats"></b-table>
+        <b-table striped hover :items="dogs"></b-table>
     </div>
 </template>
 
 <script>
-import cats from '@/data/cats'
+import dogs from '@/data/dogs'
 
 export default {
     data() {
         return {
-            cats
+            dogs
         }
     }
 }
