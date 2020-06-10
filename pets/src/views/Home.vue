@@ -3,7 +3,3 @@
     <h3>Home</h3>
   </div>
 </template>
-
-<script>
-
-</script>
