@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    {{ getGreeting }}
   </div>
 </template>
 
@@ -8,6 +9,16 @@
 
 export default {
   name: 'App',
+  data () {
+    return {
+      reversedGreeting: '!dlrow olleH'
+    }
+  },
+  computed: {
+    getGreeting() {
+      return this.reversedGreeting.split("").reverse().join("");
+    }
+  }
 }
 </script>
 
