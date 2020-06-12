@@ -18,6 +18,7 @@ export default {
     data () {
         return {
             input: ''
+            // counter: 0
         }
     },
 
@@ -27,6 +28,11 @@ export default {
                 note: this.input,
                 timestamp: new Date().toLocaleString()
             });
+
+            // EventBus.$emit('note-counter',{
+            //     counter: this.counter++
+            // });
+
             this.input = '';
         }
     }

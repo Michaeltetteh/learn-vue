@@ -17,8 +17,8 @@
       </div>
       <InputComponent 
         :placeholder="placeholder"></InputComponent>
-      <NoteCountComponent />
     </div>
+    <NoteCountComponent></NoteCountComponent>
   </div>
 </template>
 
