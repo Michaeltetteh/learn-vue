@@ -26,12 +26,15 @@ export const store = {
 
     editEvent (dayId, eventDetails) {
         this.resetEditOfAllEvents();
+        
         const dayObj = this.state.seedData.find(
             day => day.id === dayId  
         );
+        
         const eventObj = dayObj.events.find(
             event => event.details === eventDetails
         );
+        
         eventObj.edit = true;
     },
 
@@ -43,5 +46,19 @@ export const store = {
                         event.edit = false;
                     });
             });
+    },
+
+    updateEvent (dayId, originalEventDetails, newEventDetails) {
+
+        const dayObj = this.state.seedData.find(
+            day => day.id === dayId
+        );
+
+        const eventObj = dayObj.events.find(
+            event => event.details === originalEventDetails
+        );
+
+        eventObj.details = newEventDetails;
+        eventObj.edit = false;
     }
 }
