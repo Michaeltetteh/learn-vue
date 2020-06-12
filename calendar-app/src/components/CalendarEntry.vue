@@ -1,9 +1,13 @@
 <template>
     <div id="calendar-entry">
+      <!-- <p>{{ inputEntry }}</p> -->
       <div class="calendar-entry-note">
-        <input type="text" placeholder="New Event" />
+        <input type="text" placeholder="New Event" v-model="inputEntry" required />
         <p class="calendar-entry-day">Day of event: <span class="bold"> {{ titleOfActiveDay}} </span></p>
-        <a class="button is-primary is-small is-outlined">Submit</a>
+        <a class="button is-primary is-small is-outlined"
+          @click="submitEvent(inputEntry)">
+          Submit
+        </a>
       </div>
     </div>
 </template>
@@ -13,9 +17,23 @@ import { store } from '../store.js'
 
 export default {
     name: "CalendarEntry",
+    
     computed: {
       titleOfActiveDay () {
         return store.getActiveDay().fullTitle;
+      }
+    },
+
+    data () {
+      return {
+        inputEntry: ''
+      }
+    },
+
+    methods: {
+      submitEvent (eventDetails) {
+        store.submitEvent(eventDetails);
+        this.inputEntry = '';
       }
     }
 }
