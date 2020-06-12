@@ -55,5 +55,15 @@ export const store = {
         return dayObj.events.find(
             event => event.details === eventDetails
         );
+    },
+
+    deleteEvent (dayId, eventDetails) {
+        const dayObj = this.state.seedData.find(
+            day => day.id === dayId 
+        );
+        const eventIndexToRemove = dayObj.events.findIndex(
+            event => event.details === eventDetails
+        );
+        dayObj.events.splice(eventIndexToRemove, 1);
     }
 }
