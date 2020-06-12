@@ -13,14 +13,14 @@
             <div class="columns">
                 <div class="column has-text-centered">
                     <strong>Notes</strong>
-                    <div class="notes">
-                        Notes
+                    <div v-for="note in notes" class="notes">
+                        {{ note }}
                     </div>
                 </div>
                 <div class="column has-text-centered">
                     <strong>Timestamp</strong>
-                    <div  class="timestamps">
-                        Timestamp
+                    <div v-for="timestamp in timestamps" class="timestamps">
+                        {{ timestamp }}
                     </div>
                 </div>
             </div>

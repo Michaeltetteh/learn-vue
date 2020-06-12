@@ -50,11 +50,47 @@ const store = new Vuex.Store({
     getters
 })
 
+const inputComponent = {
+    template: 
+    `
+    <input placeholder="Enter a note"
+        v-model="input"
+        @keyup.enter="monitorEnterKey"
+        class="input is-small" text="text" />
+    `,
+    data() {
+        return {
+            input: ''
+        }
+    },
+    methods: {
+        monitorEnterKey() {
+            store.dispatch('addNote', this.input);
+            store.dispatch('addTimestamp', new Date().toLocaleString());
+            this.input = '';
+        }
+    }
+}
+
+const noteCountComponent = {
+    template:
+    `<div class="note-count">
+        Note count: <strong> {{ noteCount }}</strong>
+    </div>
+    `,
+    computed: {
+        noteCount() {
+            return this.$store.getters.getNoteCount;
+        }
+    }
+}
 
 new Vue({
     el:'#app',
     store,
     components: {
-        'input-component': inputComponent
+        'input-component': inputComponent,
+        'note-count-component': noteCountComponent
     }
 })
+
