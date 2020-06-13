@@ -4,9 +4,17 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/> -->
-    <CartList></CartList>
-    <ProductList></ProductList>
+    <router-view/>-->
+    <div class="container">
+      <div class="columns">
+        <div class="column is-3">
+          <CartList />
+        </div>
+        <div class="column is-9">
+          <ProductList />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,29 +27,28 @@ export default {
   components: {
     CartList,
     ProductList
-  }  
-}
+  }
+};
 </script>
 
 <style>
+
+html,
+body {
+  background: #f2f6fa;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+@media screen and (min-width: 769px) {
+  html,
+  body {
+    height: 100%;
+  }
 }
 </style>
