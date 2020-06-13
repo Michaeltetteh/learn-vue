@@ -2,8 +2,8 @@
   <div>
     <p class="cart-item--title is-inline">{{ cartItem.title }}</p>
     <div class="is-pulled-right">
-      <i class="fa fa-arrow-circle-up cart-item--modify"></i>
-      <i class="fa fa-arrow-circle-down cart-item--modify"></i>
+      <i class="fa fa-plus cart-item--modify"></i> |
+      <i class="fa fa-minus cart-item--modify"></i>
     </div>
     <div class="cart-item--content">
       <span class="cart-item--price has-text-primary has-text-weight-bold">
