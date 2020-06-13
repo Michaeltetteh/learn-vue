@@ -15,7 +15,10 @@
           <span class="has-text-weight-bold">{{ cartQuantity }}</span>
         </p>
         <p class="cart-remove-all--text">
-          <i class="fa fa-trash"></i>Remove all
+          <i 
+            class="fa fa-trash"
+            @click="removeAllCartItems">
+          </i>Remove all
         </p>
       </div>
     </ul>
@@ -27,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import CartListItem from './CartListItem';
 
 export default {
@@ -44,6 +47,11 @@ export default {
   },
   components: {
     CartListItem
+  },
+  methods: {
+    ...mapActions([
+      'removeAllCartItems'
+    ])
   }
 };
 </script>

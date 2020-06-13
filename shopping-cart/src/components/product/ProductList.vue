@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="product-count has-text-right">
-      <span class="has-text-weight-bold"># of products: 4</span>
+      <span class="has-text-weight-bold"># of products: 5</span>
     </div>
   </div>
 </template>
