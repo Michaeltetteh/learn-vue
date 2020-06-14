@@ -10,6 +10,10 @@ const mutations = {
     // UPDATE_CART_ITEMS(state, payload) {
     //   state.cartItem = payload
     // }
+
+    // The[types.UPDATE_CART_ITEMS] declaration in the mutations object is an example of
+    // using ES6 computed property names to initialize object properties from variables.
+    
     // for large scale apps
     [types.UPDATE_CART_ITEMS] (state, payload) {
         state.cartItem = payload
