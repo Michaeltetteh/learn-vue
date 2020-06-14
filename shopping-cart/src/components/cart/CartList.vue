@@ -28,7 +28,7 @@
     </p>
    
     <button
-      v-if="cartItems.length > 0" 
+      :disabled="!cartItems.length"
       class="button is-primary">
       Checkout (
       <span class="has-text-weight-bold">$ {{ cartTotal }} </span>)
