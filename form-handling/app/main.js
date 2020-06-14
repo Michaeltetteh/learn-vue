@@ -1,0 +1,3 @@
+new VTTCue({
+    el: "#app"
+})
