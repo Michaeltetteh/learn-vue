@@ -6,6 +6,11 @@ const state = {
 };
 
 const mutations = {
+
+    // UPDATE_CART_ITEMS(state, payload) {
+    //   state.cartItem = payload
+    // }
+    // for large scale apps
     [types.UPDATE_CART_ITEMS] (state, payload) {
         state.cartItem = payload
     }
@@ -14,25 +19,27 @@ const mutations = {
 const actions = {
     getCartItems ({ commit }) {
         axios.get('/api/cart').then((res) => {
-            commit('UPDATE_CART_ITEMS',res.data)
+            // commit('UPDATE_CART_ITEMS',res.data)
+            commit(types.UPDATE_CART_ITEMS, res.data)
         });
     },
 
     addCartItem ({ commit }, cartItem) {
         axios.post('/api/cart', cartItem).then((res) => {
-            commit("UPDATE_CART_ITEMS",res.data)
+            // commit("UPDATE_CART_ITEMS",res.data)
+            commit(types.UPDATE_CART_ITEMS, res.data)
         });
     },
 
     removeCartItem ({ commit }, cartItem) {
         axios.post('/api/cart/delete',cartItem).then((res) => {
-            commit("UPDATE_CART_ITEMS", res.data)
+            commit(types.UPDATE_CART_ITEMS, res.data)
         });
     },
 
     removeAllCartItems ({ commit }) {
         axios.post('/api/cart/delete/all').then((res) => {
-            commit("UPDATE_CART_ITEMS", res.data)
+            commit(types.UPDATE_CART_ITEMS, res.data)
         });
     }
 };
