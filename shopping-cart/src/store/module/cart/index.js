@@ -1,11 +1,12 @@
 import axios from 'axios';
+import * as types from "./mutations-types"
 
 const state = {
     cartItem: []
 };
 
 const mutations = {
-    UPDATE_CART_ITEMS (state, payload) {
+    [types.UPDATE_CART_ITEMS] (state, payload) {
         state.cartItem = payload
     }
 };
