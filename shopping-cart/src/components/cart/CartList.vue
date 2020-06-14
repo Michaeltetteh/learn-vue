@@ -3,7 +3,7 @@
     <div class="cart--header has-text-centered">
       <i class="fa fa-2x fa-shopping-cart"></i>
     </div>
-    <ul>
+    <ul v-if="cartItems.length > 0">
       <li v-for="cartItem in cartItems" 
         :key="cartItem.id" class="cart-item">
         
@@ -22,7 +22,14 @@
         </p>
       </div>
     </ul>
-    <button class="button is-primary">
+    <p v-if="!cartItems.length"
+      class="cart-empty-text has-text-centered">
+      Add some items to cart.
+    </p>
+   
+    <button
+      v-if="cartItems.length > 0" 
+      class="button is-primary">
       Checkout (
       <span class="has-text-weight-bold">$ {{ cartTotal }} </span>)
     </button>
