@@ -63,7 +63,9 @@ const InputForm = {
                 urgency: undefined,
                 termsAndConditions: undefined
             },
-            items: []
+            items: [],
+            loading: false,
+            saveStatus: "READY"
         }
     },
     
@@ -102,7 +104,7 @@ const InputForm = {
         isEmail(email) {
             const re = /\S+@\S+\.\S+/;
             return re.test(email);
-        }
+        },
     },
 
     computed: {
@@ -114,8 +116,39 @@ const InputForm = {
             return this.fields.urgency === "Nonessential";
         }
     },
-
     
+    created() {
+        this.loading = true,
+        apiClient.loadItems().then((items) => {
+            this.items = items;
+            this.loading = false;
+        });
+    },
+}
+
+let apiClient = {
+    loadItems: function () {
+        return {
+            then: function (cb) {
+                setTimeout(() => {
+                    cb(JSON.parse(localStorage.items || '[]'));
+                },1000);
+            },
+        };
+    },
+
+    saveItems: function (items) {
+        const success = !!(this.count++ % 2);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                if (!success) return reject({success});
+                localStorage.items = JSON.stringify(items);
+                return resolve({success});
+            }, 1000);
+        });
+    },
+
+    count: 1,
 }
 
 new Vue({
