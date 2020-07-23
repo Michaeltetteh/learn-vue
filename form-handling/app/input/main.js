@@ -38,8 +38,23 @@ const InputForm = {
                 </div>
                 <span style="color: red;"> {{ fieldErrors.termsAndConditions }} </span>
             </div>
-            <button :disabled="isNewItemInputLimitExceeded || isNotUrgent" class="ui button">Submit</button>
-         </form> 
+            <button v-if="saveStatus === 'SAVING'" 
+                disabled class="ui button">
+                Saving...    
+            </button> 
+            <button v-if="saveStatus === 'SUCCESS'" 
+                :disabled="isNewItemInputLimitExceeded || isNotUrgent" class="ui button">
+                Saved! submit another
+            </button> 
+            <button v-if="saveStatus === 'ERROR'" 
+                :disabled="isNewItemInputLimitExceeded || isNotUrgent" class="ui button">
+                Save Failed - Retry.
+            </button> 
+            <button v-if="saveStatus === 'READY'" 
+                :disabled="isNewItemInputLimitExceeded || isNotUrgent" class="ui button">
+                Submit
+            </button> 
+        </form> 
          <div class="ui segment">
             <h4 class="ui header">Items</h4>
             <ul>
@@ -78,11 +93,23 @@ const InputForm = {
             // console.log(this.validateForm(this.fields));
             if (Object.keys(this.fieldErrors).length) return;
 
-            this.items.push(this.fields.newItem);
-            this.fields.newItem = ''
-            this.fields.email = ''
-            this.fields.urgency = ''
-            this.fields.termsAndConditions = false
+            const items = [...this.items, this.fields.newItem];
+
+            this.saveStatus = "SAVING";
+
+            apiClient.saveItems(items)
+                .then(() => {
+                    this.items = items;
+                    this.fields.newItem = '';
+                    this.fields.email = '';
+                    this.fields.urgency = '';
+                    this.fields.termsAndConditions = false;
+                    this.saveStatus = "SUCCESS";
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.saveStatus = "ERROR";
+                });
         },
 
         validateForm(fields) {
