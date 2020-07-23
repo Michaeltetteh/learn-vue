@@ -58,6 +58,7 @@ const InputForm = {
          <div class="ui segment">
             <h4 class="ui header">Items</h4>
             <ul>
+                <div v-if="loading" class="ui active inline loader"></div>
                 <li v-for="item in items" class="item"> {{ item }} </li>
             </ul>
          </div>
