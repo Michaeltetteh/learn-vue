@@ -4,8 +4,8 @@ const InputForm = {
         <form @submit="submitForm" class="ui form">
             <div class="field">
                 <label>New Item</label>
-                <input v-model="fields.newItem" type="text" placeholder="Add an item!" />
-                <span style="float: right"> {{ fields.newItem.length}}/20 </span>
+                <input v-model="newItem" type="text" placeholder="Add an item!" />
+                <span style="float: right"> {{ newItem.length}}/20 </span>
                 <span style="color: red;"> {{ fieldErrors.newItem }} </span>
                 <span v-if="isNewItemInputLimitExceeded"
                     style="color: red; display: block;">
@@ -14,12 +14,12 @@ const InputForm = {
             </div> 
             <div class="field">
                 <label>Email</label>
-                <input v-model="fields.email" type="email" placeholder="example@example.com"/>
+                <input v-model="email" type="email" placeholder="example@example.com"/>
                 <span style="color: red;"> {{ fieldErrors.email }} </span>
             </div>
             <div class="field">
                 <label>Urgency</label>
-                <select v-model="fields.urgency" class="ui fluid search dropdown">
+                <select v-model="urgency" class="ui fluid search dropdown">
                     <option disabled value="">Please select one</option>
                     <option>Nonessential</option>
                     <option>Moderate</option>
@@ -33,7 +33,7 @@ const InputForm = {
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input v-model="fields.termsAndConditions" type="checkbox" />
+                    <input v-model="termsAndConditions" type="checkbox" />
                     <label>I accept the terms and conditions</label>
                 </div>
                 <span style="color: red;"> {{ fieldErrors.termsAndConditions }} </span>
@@ -128,49 +128,26 @@ const InputForm = {
         },
     },
 
-    computed: {
-        isNewItemInputLimitExceeded() {
-            return this.fields.newItem.length >= 20;
-        },
-        
-        isNotUrgent() {
-            return this.fields.urgency === "Nonessential";
-        }
-    },
-    
+    computed: Vuex.mapGetters({
+        newItem: 'newItem',
+        email: 'email',
+        newItemLength: 'newItemLength',
+        isNewItemInputLimitExceeded: 'isNewItemInputLimitExceeded',
+        urgency: 'urgency',
+        isNotUrgent: 'isNotUrgent',
+        termsAndConditions: 'termsAndConditions',
+        items: 'items'
+    }),
+
     created() {
-        this.loading = true,
-        apiClient.loadItems().then((items) => {
-            this.items = items;
-            this.loading = false;
-        });
+        // this.loading = true,
+        // apiClient.loadItems().then((items) => {
+        //     this.items = items;
+        //     this.loading = false;
+        // });
     },
 }
 
-// let apiClient = {
-//     loadItems: function () {
-//         return {
-//             then: function (cb) {
-//                 setTimeout(() => {
-//                     cb(JSON.parse(localStorage.items || '[]'));
-//                 },1000);
-//             },
-//         };
-//     },
-
-//     saveItems: function (items) {
-//         const success = !!(this.count++ % 2);
-//         return new Promise((resolve, reject) => {
-//             setTimeout(() => {
-//                 if (!success) return reject({success});
-//                 localStorage.items = JSON.stringify(items);
-//                 return resolve({success});
-//             }, 1000);
-//         });
-//     },
-
-//     count: 1,
-// }
 
 new Vue({
     el: "#app",
