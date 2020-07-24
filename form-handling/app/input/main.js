@@ -4,7 +4,8 @@ const InputForm = {
         <form @submit="submitForm" class="ui form">
             <div class="field">
                 <label>New Item</label>
-                <input :value="newItem" type="text" placeholder="Add an item!" />
+                <input :value="newItem" type="text" placeholder="Add an item!"
+                    @input="onInputChange" name="NEW_ITEM" />
                 <span style="float: right"> {{ newItem.length}}/20 </span>
                 <span style="color: red;"> {{ fieldErrors.newItem }} </span>
                 <span v-if="isNewItemInputLimitExceeded"
@@ -14,12 +15,14 @@ const InputForm = {
             </div> 
             <div class="field">
                 <label>Email</label>
-                <input :value="email" type="email" placeholder="example@example.com"/>
+                <input :value="email" type="email" placeholder="example@example.com"
+                    @input = "onInputChange" name="EMAIL" />
                 <span style="color: red;"> {{ fieldErrors.email }} </span>
             </div>
             <div class="field">
                 <label>Urgency</label>
-                <select :value="urgency" class="ui fluid search dropdown">
+                <select :value="urgency" class="ui fluid search dropdown"
+                    @change="onInputChange" name="URGENCY" >
                     <option disabled value="">Please select one</option>
                     <option>Nonessential</option>
                     <option>Moderate</option>
@@ -33,7 +36,8 @@ const InputForm = {
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input :checked="termsAndConditions" type="checkbox" />
+                    <input :checked="termsAndConditions" type="checkbox" 
+                        name="TERMS_AND_CONDITIONS" @change="onInputChange" />
                     <label>I accept the terms and conditions</label>
                 </div>
                 <span style="color: red;"> {{ fieldErrors.termsAndConditions }} </span>
@@ -79,6 +83,13 @@ const InputForm = {
     },
     
     methods: {
+        onInputChange(evt) {
+            const element = evt.target;
+            const value = element.name === "TERMS_AND_CONDITIONS" ? element.checked : element.value;
+
+            this.$store.commit(`UPDATE_${element.name}`, value);
+        },
+
         submitForm(evt) {
             evt.preventDefault();
 
@@ -140,11 +151,14 @@ const InputForm = {
     }),
 
     created() {
-        // this.loading = true,
-        // apiClient.loadItems().then((items) => {
-        //     this.items = items;
-        //     this.loading = false;
-        // });
+        this.loading = true;
+        this.$store.dispatch('loadItems')
+            .then((response) => {
+                this.loading = false;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
     },
 }
 

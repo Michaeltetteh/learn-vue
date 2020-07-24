@@ -32,7 +32,31 @@ const mutations = {
     }
 }
 
-const actions = {}
+const actions = {
+    loadItems (context, payload) {
+        return new Promise((resolve, reject) => {
+            apiClient.loadItems().then((items) => {
+                context.commit('UPDATE_ITEMS', items);
+                resolve(items);
+            },(error) => {
+                reject(error);
+            });
+        });
+    },
+    saveItems (context, payload) {
+        return new Promise((resolve, reject) => {
+            const items = payload;
+
+            apiClient.saveItems(payload).then((response) => {
+                context.commit('UPDATE_ITEMS', items);
+                context.commit('CLEAR_FIELDS');
+                resolve(response);
+            },(error) => {
+                reject(error);
+            });
+        });
+    }
+}
 
 const getters = {
     newItem: state => state.fields.newItem,
