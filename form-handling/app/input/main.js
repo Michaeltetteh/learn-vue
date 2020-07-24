@@ -4,7 +4,7 @@ const InputForm = {
         <form @submit="submitForm" class="ui form">
             <div class="field">
                 <label>New Item</label>
-                <input v-model="newItem" type="text" placeholder="Add an item!" />
+                <input :value="newItem" type="text" placeholder="Add an item!" />
                 <span style="float: right"> {{ newItem.length}}/20 </span>
                 <span style="color: red;"> {{ fieldErrors.newItem }} </span>
                 <span v-if="isNewItemInputLimitExceeded"
@@ -14,12 +14,12 @@ const InputForm = {
             </div> 
             <div class="field">
                 <label>Email</label>
-                <input v-model="email" type="email" placeholder="example@example.com"/>
+                <input :value="email" type="email" placeholder="example@example.com"/>
                 <span style="color: red;"> {{ fieldErrors.email }} </span>
             </div>
             <div class="field">
                 <label>Urgency</label>
-                <select v-model="urgency" class="ui fluid search dropdown">
+                <select :value="urgency" class="ui fluid search dropdown">
                     <option disabled value="">Please select one</option>
                     <option>Nonessential</option>
                     <option>Moderate</option>
@@ -33,7 +33,7 @@ const InputForm = {
             </div>
             <div class="field">
                 <div class="ui checkbox">
-                    <input v-model="termsAndConditions" type="checkbox" />
+                    <input :checked="termsAndConditions" type="checkbox" />
                     <label>I accept the terms and conditions</label>
                 </div>
                 <span style="color: red;"> {{ fieldErrors.termsAndConditions }} </span>
