@@ -93,27 +93,23 @@ const InputForm = {
         submitForm(evt) {
             evt.preventDefault();
 
-            this.fieldErrors = this.validateForm(this.fields);
-            // console.log(this.fieldErrors);
-            // console.log(this.validateForm(this.fields));
+            this.fieldErrors = this.validateForm(this.$store.state.fields);
             if (Object.keys(this.fieldErrors).length) return;
 
-            const items = [...this.items, this.fields.newItem];
+            const items = [
+                ...this.$store.state.items, 
+                this.$store.state.fields.newItem
+            ];
 
             this.saveStatus = "SAVING";
 
-            apiClient.saveItems(items)
+            this.$store.dispatch('saveItems', items)
                 .then(() => {
-                    this.items = items;
-                    this.fields.newItem = '';
-                    this.fields.email = '';
-                    this.fields.urgency = '';
-                    this.fields.termsAndConditions = false;
                     this.saveStatus = "SUCCESS";
                 })
                 .catch((err) => {
                     console.log(err);
-                    this.saveStatus = "ERROR";
+                    this.saveStatus = 'ERROR';
                 });
         },
 
